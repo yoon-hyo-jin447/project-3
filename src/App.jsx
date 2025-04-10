@@ -59,6 +59,7 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log('✅ App 렌더링 됨');
     fetchPopularVideos().then(setVideos);
   }, []);
 
