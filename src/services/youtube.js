@@ -58,10 +58,23 @@ export async function fetchRelatedVideos(channelId) {
   return filtered;
 }
 
+// export async function getSuggestions(keyword) {
+//   console.log('검색어(keyword):', keyword);
+//   try {
+//     const res = await fetch(`/api/suggest?client=firefox&ds=yt&q=${keyword}`);
+//     const data = await res.json();
+//     // console.log ('자동완성 API 응답:' data);
+//     return data[1];
+//   } catch (error) {
+//     console.error('자동완성 API 요청 실패:', error);
+//     return [];
+//   }
+// }
+
 export async function getSuggestions(keyword) {
   console.log('검색어(keyword):', keyword);
   try {
-    const res = await fetch(`/api/suggest?client=firefox&ds=yt&q=${keyword}`);
+    const res = await fetch(`/api/suggest?q=${keyword}`);
     const data = await res.json();
     // console.log ('자동완성 API 응답:' data);
     return data[1];
