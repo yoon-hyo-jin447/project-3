@@ -5,6 +5,7 @@ import { getSuggestions } from '../services/youtube';
 import { useUser } from '../context/UserContext';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
+import '../index.css';
 
 export default function Header({ onSearch }) {
   const [text, setText] = useState('');
@@ -41,63 +42,65 @@ export default function Header({ onSearch }) {
   };
 
   return (
-    <header className="w-full bg-black text-white p-4 flex gap-2 flex-col items-center sm:flex-row justify-between">
+    <header className="w-full bg-black text-white p-4 flex flex-col gap-2  items-center sm:flex-row justify-between">
       <Link to="/" className="flex items-center space-x-3">
-        <section className="flex space-x-2">
-          <img src={YoutubeLogo} alt="Youtube Lodo" className="w-10 h-8" />
+        <section className="hide-on-mobile flex items-center">
+          <img src={YoutubeLogo} alt="Youtube Lodo" className="w-11 h-8" />
           <h1 className="logo">Youtube</h1>
         </section>
       </Link>
-      <form onSubmit={handleSubmit} className="flex ml-auto">
-        <input
-          className="search-input"
-          type="text"
-          value={text}
-          onChange={handleChange}
-          placeholder="검색어를 입력하세요"
-        />
-        <button
-          type="submit"
-          className="px-4 py-2 bg-red-600 text-white rounded-r-md "
-        >
-          🔍
-        </button>
-      </form>
-
-      {user ? (
-        <div
-          className="flex items-center gap-4"
-          onClick={() => setShowProfile(!showProfile)}
-        >
-          <img
-            src={user.photoURL}
-            alt="profile"
-            className="w-8 h-8 rounded-full"
+      <div className="flex items-center space-x-2 my-auto">
+        <form onSubmit={handleSubmit} className="flex py-2">
+          <input
+            className="search-input"
+            type="text"
+            value={text}
+            onChange={handleChange}
+            placeholder="검색어를 입력하세요"
           />
-          {showProfile && (
-            <div className="absolute top-10 right-0 bg-white text-black p-4 rounded shadow-lg z-50">
-              <p className="font-semibold">{user.displayName}</p>
-              <p className="text-sm text-gray-500">{user.email}</p>
-              <button
-                onClick={handleLogout}
-                className="mt-2 text-red-500 text-sm"
-              >
-                로그아웃
-              </button>
-            </div>
-          )}
-        </div>
-      ) : (
-        <a
-          href="/login"
-          className="bg-red-600 text-white px-4 py-2 rounded text-sm"
-        >
-          로그인
-        </a>
-      )}
+          <button
+            type="submit"
+            className="px-4 py-2 bg-red-600 text-white rounded-r-md "
+          >
+            🔍
+          </button>
+        </form>
+
+        {user ? (
+          <div
+            className="flex items-center gap-4 shrink-0"
+            onClick={() => setShowProfile(!showProfile)}
+          >
+            <img
+              src={user.photoURL}
+              alt="profile"
+              className="w-8 h-8 rounded-full object-cover"
+            />
+            {showProfile && (
+              <div className="absolute top-10 right-0 bg-white text-black p-4 rounded shadow-lg z-50">
+                <p className="font-semibold">{user.displayName}</p>
+                <p className="text-sm text-gray-500">{user.email}</p>
+                <button
+                  onClick={handleLogout}
+                  className="mt-2 text-red-500 text-sm"
+                >
+                  로그아웃
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <a
+            href="/login"
+            className="bg-red-600 w-auto h-autotext-center text-white p-3   rounded text-xs"
+          >
+            로그인
+          </a>
+        )}
+      </div>
 
       {suggestions.length > 0 && (
-        <ul className="absolute top-14 left-0 w-full bg-white text-black rounded shadow-md z-10">
+        <ul className="absolute top-28 left-0 w-full h-32 bg-white text-black rounded shadow-md z-10 sm:top-24">
           {suggestions.map((s, idx) => (
             <li
               key={idx}

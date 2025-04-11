@@ -13,20 +13,36 @@
 }
 
 .logo {
-  font-size: 24px;
+  font-size: 12px;
   font-weight: bold;
 }
 
 .search-input {
-  width: auto;
+  width: 250px;
   padding: 8px;
   font-size: 16px;
   color: #181818;
 }
 
+@media (max-width: 398px) {
+  .search-input {
+    width: 160px;
+    padding: 8px;
+    font-size: 16px;
+    color: #181818;
+  }
+}
+
 /* Header.Jsx css */
 
 /* videocard css */
+
+/* @media (max-width: 369px) {
+  .hide-on-mobile {
+    display: none;
+  }
+} */
+
 .video.card {
   width: 300px;
   margin: 10px;
