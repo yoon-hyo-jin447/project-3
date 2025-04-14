@@ -8,7 +8,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 12px 20px;
-  background-color: #202020;
+  /* background-color: #202020; */
   color: white;
 }
 
@@ -22,6 +22,7 @@
   padding: 8px;
   font-size: 16px;
   color: #181818;
+  border: 1px solid red;
 }
 
 @media (max-width: 398px) {
@@ -46,7 +47,6 @@
 .video.card {
   width: 300px;
   margin: 10px;
-  color: white;
 }
 
 .thumbnail {
@@ -62,7 +62,6 @@
 .title {
   font-size: 16px;
   font-weight: bold;
-  color: white;
 }
 
 .channel {
@@ -76,6 +75,5 @@
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 16px;
   padding: 20px;
-  background-color: #181818;
   /* justify-content: center; */
 }

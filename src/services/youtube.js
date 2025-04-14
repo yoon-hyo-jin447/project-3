@@ -83,3 +83,42 @@ export async function getSuggestions(keyword) {
     return [];
   }
 }
+
+export async function fetchComments(videoId) {
+  console.log('댓글 :', videoId);
+  try {
+    const response = await fetch(
+      `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${videoId}&key=${API_KEY}`
+    );
+    const data = await response.json();
+    return data.items;
+  } catch (error) {
+    console.error('댓글 api:', error);
+    return [];
+  }
+}
+
+export async function translateText(text, source = 'ko', target = 'en') {
+  try {
+    const response = await fetch('http://localhost:5055/translate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        q: text,
+        source: 'ko',
+        target: 'en',
+        format: 'text',
+      }),
+    });
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(`번역 실패: ${error?.error || response.status}`);
+    }
+
+    const data = await response.json();
+    return data.translatedText;
+  } catch (err) {
+    console.error('🔴 번역 에러:', err.message);
+    return '⚠️ 번역에 실패했습니다';
+  }
+}

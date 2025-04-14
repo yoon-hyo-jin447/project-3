@@ -6,6 +6,7 @@ import { useUser } from '../context/UserContext';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 import '../index.css';
+import { useTheme } from '../context/ThemeContext';
 
 export default function Header({ onSearch }) {
   const [text, setText] = useState('');
@@ -13,6 +14,7 @@ export default function Header({ onSearch }) {
   const handleChange = (e) => setText(e.target.value);
   const { user, setUser } = useUser();
   const [showProfile, setShowProfile] = useState(false);
+  const { darkMode, toggleTheme } = useTheme();
 
   const handleLogout = () => {
     signOut(auth)
@@ -42,14 +44,22 @@ export default function Header({ onSearch }) {
   };
 
   return (
-    <header className="w-full bg-black text-white p-4 flex flex-col gap-2  items-center sm:flex-row justify-between">
+    <header className="w-full p-4 flex flex-col gap-2  items-center sm:flex-row justify-between">
       <Link to="/" className="flex items-center space-x-3">
-        <section className="hide-on-mobile flex items-center">
+        <section className="hide-on-mobile flex items-center space-x-2">
           <img src={YoutubeLogo} alt="Youtube Lodo" className="w-11 h-8" />
           <h1 className="logo">Youtube</h1>
         </section>
       </Link>
+
       <div className="flex items-center space-x-2 my-auto">
+        <button
+          onClick={toggleTheme}
+          className="fixed bottom-4 right-4 px-4 py-2 bg-slate-200 dark:bg-gray-700"
+        >
+          {darkMode ? 'Light Mode' : 'Dark Mode'}
+        </button>
+
         <form onSubmit={handleSubmit} className="flex py-2">
           <input
             className="search-input"

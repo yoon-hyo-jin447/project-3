@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import Login from './components/Login';
 import { UserProvider } from './context/UserContext';
 import VideoDetail from './pages/VideoDetail';
+
 // const Videos = Array(8).fill({
 //   id: Math.random(),
 //   snippet: {
@@ -78,20 +79,22 @@ function App() {
 
   return (
     <UserProvider>
-      <Header onSearch={handleSearch} />
-      {searchMutation.isPending && (
-        <p className="w-10 h-10 border-4 border-red-500 border-t-transparent rounded-full animate-spin"></p>
-      )}
-      {searchMutation.isError && (
-        <p>에러 발생: {searchMutation.error.message}</p>
-      )}
-      <CategoryBar onSelect={handleSearch} />
+      <div className="bg-white text-black dark:bg-gray-800 dark:text-white min-h-screen">
+        <Header onSearch={handleSearch} />
+        {searchMutation.isPending && (
+          <p className="w-10 h-10 border-4 border-red-500 border-t-transparent rounded-full animate-spin"></p>
+        )}
+        {searchMutation.isError && (
+          <p>에러 발생: {searchMutation.error.message}</p>
+        )}
+        <CategoryBar onSelect={handleSearch} />
 
-      <Routes>
-        <Route path="/" element={videos && <VideoList videos={videos} />} />
-        <Route path="/video/:videoId" element={<VideoDetail />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
+        <Routes>
+          <Route path="/" element={videos && <VideoList videos={videos} />} />
+          <Route path="/video/:videoId" element={<VideoDetail />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </div>
     </UserProvider>
   );
 }

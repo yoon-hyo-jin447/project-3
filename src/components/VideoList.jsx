@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import VideoCard from './VideoCard';
 import { fetchPopularVideos, fetchRelatedVideos } from '../services/youtube';
+import { motion } from 'framer-motion';
 
 export default function VideoList({
   type,
@@ -23,10 +24,19 @@ export default function VideoList({
   }, [type, videoId, propVideos]);
 
   return (
-    <section className="video-list">
-      {videos.map((video) => {
+    <section className="video-list gap-4 p-4">
+      {videos.map((video, index) => {
         const id = video.id?.videoId || video.id;
-        return <VideoCard key={id} video={video} />;
+        return (
+          <motion.div
+            key={id || index}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: index * 0.05 }}
+          >
+            <VideoCard video={video} />;
+          </motion.div>
+        );
       })}
     </section>
   );

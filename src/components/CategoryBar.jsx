@@ -8,7 +8,7 @@ export default function CategoryBar({ onSelect }) {
       {categories.map((category) => (
         <button
           key={category}
-          className="px-3 py-1 rounded-full bg-gray-100 hover:bg-red-200 transition"
+          className="px-3 py-1 rounded-full hover:bg-red-200 transition"
           onClick={() => onSelect(category)}
         >
           {category}
